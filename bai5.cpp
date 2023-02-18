@@ -1,37 +1,79 @@
 #include <iostream>
-#include <math.h>
+#include <iomanip>
 using namespace std;
 
-
-void phuongTrinhBacHai(float a, float b, float c) {
-    float x, x1, x2;
-    float delta = (b * b) - ( 4 * a * c );
-
-    if (delta > 0) {
-        delta = sqrt(delta);
-        cout << "Phuong trinh co 2 nghiem " << endl;
-        x1 = (-b + delta) / (2 * a);
-        cout << "Nghiem thu 1 la : " << x1 << endl;
-        x2 = (-b - delta) / (2 * a);
-        cout << "Nghiem thu 2 la : " << x2 << endl;
-    } else if (delta == 0) {
-        x = -b / (2 * a);
-        cout << "Phuong trinh co nghiem kep : " << x << endl;
-    } else {
-        cout << "Phuong trinh vo nghiem" << endl;
-    }
-}
+void getData(double *, int);
+void selectionSort(double *, int);
+double getAverage(double *, int);
+void displayData(double *, int, double);
 
 int main() {
-    float a,b,c;
+	double *Test,Average;		
+	int Scores;			
 
-    cout << "a: ";
-    cin >> a;
-    cout << "b: ";
-    cin >> b;
-    cout << "c: ";
-    cin >> c;
+	cout << "Nhap so luong diem: ";
+	cin  >> Scores;
 
-    phuongTrinhBacHai(a, b, c);
-    return 0;
+	Test = new double[Scores];	
+
+	getData(Test, Scores);
+
+	selectionSort(Test, Scores);
+
+	Average = getAverage(Test, Scores);
+
+	displayData(Test, Scores, Average);
+
+	return 0;
+}
+
+void getData(double *Test, int Scores) {
+	cout << "Nhap thu tu cac diem.\n";
+	for (int i = 0; i < Scores; i++) {
+		do {
+			cout << "Diem thu " << (i + 1) << ": ";
+			cin  >> *(Test + i);
+
+			if (*(Test + i) < 0){
+				cout << "Diem khong duoc be hon 0.\n"
+					<< "Dien lai ";
+			}
+		} while (*(Test + i) < 0);
+	}
+}
+void selectionSort(double *Test, int Scores) {
+	int startscan, minIndex;
+	double minValue;
+
+	for (startscan = 0; startscan < (Scores - 1); startscan++) {
+		minIndex = startscan;
+		minValue = *(Test + startscan);
+		for (int i = startscan + 1; i < Scores; i++) {
+			if (*(Test + i) < minValue) {
+				minValue = *(Test + i);
+				minIndex = i;
+			}
+		}
+		*(Test + minIndex) = *(Test + startscan);
+		*(Test + startscan) = minValue;
+	}
+} 
+
+double getAverage(double *Test, int Scores) {
+	double Total;
+	for (int i = 0; i < Scores; i++) {
+		Total += *(Test + i);
+	}
+	return Total / Scores;
+} 
+
+void displayData(double *Test, int Scores, double Avg)  {
+	cout << "\nDiem\n";
+	cout << "So luong diem: " << Scores << endl;
+	cout << "Diem theo thu tu tang dan:\n";
+	for (int i = 0; i < Scores; i++) {
+		cout << "#" << (i + 1) << ": " << *(Test + i) << endl;
+	}
+	cout << fixed << showpoint << setprecision(2);
+	cout << "Diem trung binh: " << Avg << endl; 
 }

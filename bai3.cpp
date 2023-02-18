@@ -2,7 +2,7 @@
 using namespace std;
 
 double timGiaTriTrungBinh(int array[], const int SIZE) {
-    double trungbinh = 0.0;
+    double trungbinh;
 
     if (SIZE % 2 != 0) {
         trungbinh = *(array + (SIZE / 2));

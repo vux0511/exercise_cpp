@@ -9,7 +9,7 @@ int a, input, soNgayNamVien, tiGiaHangNgay, chiPhiThuoc, phiDichVu, tongtien;
 void noiTru() {
     cout << "-------- Bệnh nhân nội trú! --------" << endl;
 
-    cout << "Số ngày nằm viện : ";
+    cout << "Số ngày nằm viện: ";
     cin >> soNgayNamVien;
     if(soNgayNamVien > 0) {
         soNgayNamVien = soNgayNamVien;
